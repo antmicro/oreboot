@@ -14,3 +14,14 @@ device_tree = { path = "../../../lib/device_tree" }
 model = { path = "../../../drivers/model" }
 payloads = { path = "../../../../payloads"}
 print = { path = "../../../lib/print" }
+
+heapless = "0.4.x"
+register = "0.3.2"
+
+[dependencies.uart]
+path = "../../../drivers/uart"
+features = ["sunxi", "log", "heapless"]
+
+[profile.release]
+opt-level = 'z'  # Optimize for size.
+lto = true

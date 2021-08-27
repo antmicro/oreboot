@@ -26,7 +26,8 @@ global_asm!(include_str!("../start.S"));
 pub extern "C" fn _start_boot_hart(_hart_id: usize, fdt_address: usize) -> ! {
     let uart0 = &mut Sunxi::new(/*soc::UART0*/ 0x02500000, 115200);
     let w = &mut print::WriteTo::new(uart0);
-    w!("Hello, world!");
+    writeln!(w, "Hello, world!").unwrap();
+    arch::halt()
 }
 
 /// This function is called on panic.
