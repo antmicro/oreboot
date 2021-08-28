@@ -1,4 +1,5 @@
-TARGET     = riscv64gc-unknown-none-elf # RV64GCV, ackshully
+# RV64GCV, ackshully
+TARGET     = riscv64gc-unknown-none-elf
 QEMU       ?= qemu-system-riscv64
 QEMU_FLAGS += -m 1g -machine sifive_u,start-in-flash=true -nographic -device loader,addr=0x20000000,file=${IMAGE} -bios none -smp 4
 include ../../../../Makefile.inc
