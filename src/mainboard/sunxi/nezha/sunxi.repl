@@ -1,0 +1,35 @@
+rom: Memory.MappedMemory @ sysbus 0x20000000
+    size: 0x2000000
+
+brom: Memory.MappedMemory @ {
+        sysbus 0x0;
+        sysbus 0x6000000
+    }
+    size: 0x10000
+
+sram: Memory.MappedMemory @ sysbus 0x20000
+    size: 0x8000
+
+bss: Memory.MappedMemory @ sysbus 0x08000000
+    size: 0x2000000
+
+cpu: CPU.RiscV64 @ sysbus
+    cpuType: "rv64imacfd"
+    privilegeArchitecture: PrivilegeArchitecture.Priv1_10
+    timeProvider: clint
+    hartId: 0
+    init:
+        RegisterCustomCSR "mxstatus" 0x7C0 Machine
+        RegisterCustomCSR "mcor" 0x7C2 Machine
+
+clint: IRQControllers.CoreLevelInterruptor  @ sysbus 0x02000000
+    [0,1] -> cpu@[3,7]
+    frequency: 62000000
+    numberOfTargets: 1
+
+plic: IRQControllers.PlatformLevelInterruptController @ sysbus 0x0C000000
+    [0,1] -> cpu@[11,9]
+    numberOfSources: 65
+    numberOfContexts: 2
+
+

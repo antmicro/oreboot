@@ -1,0 +1,21 @@
+using sysbus
+
+mach create "Nezha"
+machine LoadPlatformDescription $ORIGIN/sunxi.repl
+
+sysbus Tag <0x2500000 0x400> "uart0"
+sysbus Tag <0x2500400 0x400> "uart1"
+sysbus Tag <0x2500800 0x400> "uart2"
+sysbus Tag <0x2500c00 0x400> "uart3"
+sysbus Tag <0x2501000 0x400> "uart4"
+sysbus Tag <0x2501400 0x400> "uart5"
+
+cpu LogFunctionNames true
+
+macro reset
+"""
+    sysbus LoadELF $ORIGIN/target/riscv64gc-unknown-none-elf/debug/nezha
+    cpu PC `sysbus GetSymbolAddress "_start"`
+"""
+
+runMacro $reset
