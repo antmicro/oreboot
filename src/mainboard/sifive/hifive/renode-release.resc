@@ -7,6 +7,17 @@ machine LoadPlatformDescription @platforms/cpus/sifive-fu540.repl
 machine LoadPlatformDescription $ORIGIN/renode-sifive-fu540.repl
 
 showAnalyzer uart0
+sysbus LogAllPeripheralsAccess true
+u54_1 LogFunctionNames true true 
+u54_2 LogFunctionNames true true
+u54_3 LogFunctionNames true true
+u54_4 LogFunctionNames true true
+
+
+sysbus Tag <0x10000004 4> "Core PLL Config" 0x80088760
+sysbus Tag <0x1000000c 4> "DDR PPL Config" 0x80088760
+sysbus Tag <0x1000001c 4> "Ethernet PLL Config" 0x80088760
+sysbus Tag <0x100b0210 2> "DDR Controller Control" 0x0100
 
 macro reset
 """
